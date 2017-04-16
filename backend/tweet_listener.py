@@ -3,7 +3,7 @@ import json
 import time
 import ConfigParser
 import tweepy
-# from tweepy import Stream 
+# from tweepy import Stream
 from tweepy.streaming import StreamListener
 
 config = ConfigParser.ConfigParser()
@@ -32,7 +32,7 @@ def get_tweets(twitter_handle):
 
     for current_tweet in timeline:
         if not current_tweet.retweeted:
-            tweet = {}    
+            tweet = {}
             tweet['tweetId'] = current_tweet.id
             tweet['message'] = current_tweet.text
             tweet['author'] = current_tweet.user.name

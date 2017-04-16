@@ -24,10 +24,9 @@ def get_sentiment(input_text):
 
 def get_tweet_sentiments(tweets):
 
-    sentiment_list = []
+    sentiment_list = {'angry': [], 'joy': [], 'sadness': [], 'fear': [], 'disgust': []}
 
     for tweet in tweets:
-        print(tweet)
         message = tweet['message']
         timestamp = tweet['timestamp']
 
@@ -48,6 +47,6 @@ def get_tweet_sentiments(tweets):
             [timestamp, message, sentiment['disgust']]
         )
 
-
+    return sentiment_list
 
 
