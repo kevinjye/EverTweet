@@ -16,20 +16,6 @@ accessSecret=config.get('API Keys', 'accessSecret')
 
 REQUEST_LIMIT = 420
 
-def parse_data(data):
-
-    current_tweet = json.loads(data)
-
-    tweet = {}
-
-    tweet['location'] = current_tweet["place"]
-    tweet['tweetId'] = current_tweet['id_str']
-    tweet['message'] = current_tweet["text"]
-    tweet['author'] = current_tweet["user"]["name"]
-    tweet['timestamp'] = current_tweet["created_at"]
-
-    print tweet
-
 def sentiment(tweet):
 
     return tweet
@@ -37,17 +23,17 @@ def sentiment(tweet):
 
 def get_tweets(twitter_handle):
 
-    auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
-    auth.set_access_token(accessToken, accessSecret)
-    api = tweepy.API(auth)
+    auth = tweepy.AppAuthHandler(consumerKey, consumerSecret)
+    # auth.set_access_token(accessToken, accessSecret)
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-    timeline = api.user_timeline(screen_name=twitter_handle, count=3200, exclude_replies=True)
+    timeline = api.user_timeline(screen_name=twitter_handle, count=3200)
     user_tweets = []
 
     for current_tweet in timeline:
         if not current_tweet.retweeted:
             tweet = {}    
-            tweet['tweetId'] = current_tweet.id_str
+            tweet['tweetId'] = current_tweet.id
             tweet['message'] = current_tweet.text
             tweet['author'] = current_tweet.user.name
             tweet['timestamp'] = current_tweet.created_at
