@@ -2,7 +2,8 @@ import tweepy
 import json
 import time
 import ConfigParser
-from tweepy import Stream
+import tweepy
+# from tweepy import Stream 
 from tweepy.streaming import StreamListener
 
 config = ConfigParser.ConfigParser()
@@ -14,22 +15,6 @@ accessToken=config.get('API Keys', 'accessToken')
 accessSecret=config.get('API Keys', 'accessSecret')
 
 REQUEST_LIMIT = 420
-
-class tweet_listener(StreamListener):
-
-    def on_data(self, data):
-        try:
-            parse_data(data)
-        except:
-            print("No data found")
-
-
-    def on_error(self, status):
-        errorMessage = "Error - Status code " + str(status)
-        print(errorMessage)
-        if status == REQUEST_LIMIT:
-            print("Request limit reached. Trying again...")
-            exit()
 
 def parse_data(data):
 
@@ -50,14 +35,26 @@ def sentiment(tweet):
     return tweet
     pass
 
-def start_stream():
+def get_tweets():
 
     auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
     auth.set_access_token(accessToken, accessSecret)
-    twitterStream = Stream(auth, TweetListener())
-    twitterStream.filter(languages=['en'], track='Chelsea')
+    api = tweepy.API(auth)
+
+    timeline = api.user_timeline(screen_name='bryanyu12345')
+    user_tweets = []
+
+    for current_tweet in timeline:
+        tweet = {}    
+        tweet['tweetId'] = current_tweet.id_str
+        tweet['message'] = current_tweet.text
+        tweet['author'] = current_tweet.user.name
+        tweet['timestamp'] = current_tweet.created_at
+        user_tweets.append(tweet)
+
+    print user_tweets
 
 # For testing purposes only
 
 if __name__ == '__main__':
-    start_stream()
+    get_tweets()
