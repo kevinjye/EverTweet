@@ -15,7 +15,7 @@ accessSecret=config.get('API Keys', 'accessSecret')
 
 REQUEST_LIMIT = 420
 
-class TweetListener(StreamListener):
+class tweet_listener(StreamListener):
 
     def on_data(self, data):
         try:
@@ -33,12 +33,11 @@ class TweetListener(StreamListener):
 
 def parse_data(data):
 
-    tweet = {}
     current_tweet = json.loads(data)
-    
+
+    tweet = {}
+
     tweet['location'] = current_tweet["place"]
-    tweet['coordinates'] = current_tweet["coordinates"]
-    tweet['language'] = current_tweet["lang"]
     tweet['tweetId'] = current_tweet['id_str']
     tweet['message'] = current_tweet["text"]
     tweet['author'] = current_tweet["user"]["name"]
@@ -46,20 +45,19 @@ def parse_data(data):
 
     print tweet
 
+def sentiment(tweet):
 
-def startStream():
+    return tweet
+    pass
+
+def start_stream():
 
     auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
     auth.set_access_token(accessToken, accessSecret)
-    while True:
-        try:
-            twitterStream = Stream(auth, TweetListener())
-            twitterStream.filter(languages=['en'], track='Chelsea')
-        except:
-            print("Restarting Stream")
-            continue
+    twitterStream = Stream(auth, TweetListener())
+    twitterStream.filter(languages=['en'], track='Chelsea')
 
 # For testing purposes only
 
 if __name__ == '__main__':
-    startStream()
+    start_stream()
