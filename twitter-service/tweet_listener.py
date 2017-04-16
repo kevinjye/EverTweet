@@ -35,26 +35,27 @@ def sentiment(tweet):
     return tweet
     pass
 
-def get_tweets():
+def get_tweets(twitter_handle):
 
     auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
     auth.set_access_token(accessToken, accessSecret)
     api = tweepy.API(auth)
 
-    timeline = api.user_timeline(screen_name='bryanyu12345')
+    timeline = api.user_timeline(screen_name=twitter_handle, count=3200, exclude_replies=True)
     user_tweets = []
 
     for current_tweet in timeline:
-        tweet = {}    
-        tweet['tweetId'] = current_tweet.id_str
-        tweet['message'] = current_tweet.text
-        tweet['author'] = current_tweet.user.name
-        tweet['timestamp'] = current_tweet.created_at
-        user_tweets.append(tweet)
+        if not current_tweet.retweeted:
+            tweet = {}    
+            tweet['tweetId'] = current_tweet.id_str
+            tweet['message'] = current_tweet.text
+            tweet['author'] = current_tweet.user.name
+            tweet['timestamp'] = current_tweet.created_at
+            user_tweets.append(tweet)
 
-    print user_tweets
+    print len(user_tweets)
 
 # For testing purposes only
-
 if __name__ == '__main__':
-    get_tweets()
+    twitter_handle = 'tomandmartys'
+    get_tweets(twitter_handle)
