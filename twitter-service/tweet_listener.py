@@ -39,9 +39,10 @@ def get_tweets(twitter_handle):
             tweet['timestamp'] = current_tweet.created_at
             user_tweets.append(tweet)
 
-    print len(user_tweets)
+    return user_tweets
 
 # For testing purposes only
 if __name__ == '__main__':
     twitter_handle = 'tomandmartys'
-    get_tweets(twitter_handle)
+    all_tweets = get_tweets(twitter_handle)
+    print len(all_tweets)
