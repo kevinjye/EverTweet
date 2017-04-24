@@ -14,5 +14,5 @@ python:
 # install dependencies
 install:
   - pip install .
-  - pip install -r backend/requirements.txt
+  - pip install -r requirements.txt
 script: pytest
