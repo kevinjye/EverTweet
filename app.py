@@ -1,5 +1,5 @@
 import json
-from flask import Flask
+from flask import Flask, render_template
 from tweet_listener import get_tweets
 from sentiment_analyzer import get_tweet_sentiments
 
@@ -8,6 +8,10 @@ app.config.update(
     DEBUG=True,
     SECRET_KEY='EVERTWEET'
 )
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 
 @app.route('/getTwitterData/<username>', methods=['GET', 'POST'])
 def getTwitterData(username):

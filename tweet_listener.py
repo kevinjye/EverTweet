@@ -1,6 +1,7 @@
 import tweepy
 import json
 import time
+import datetime
 import ConfigParser
 import tweepy
 # from tweepy import Stream
@@ -36,7 +37,9 @@ def get_tweets(twitter_handle):
             tweet['tweetId'] = current_tweet.id
             tweet['message'] = current_tweet.text
             tweet['author'] = current_tweet.user.name
-            tweet['timestamp'] = current_tweet.created_at
+            s = str(current_tweet.created_at)
+            new_s = time.mktime(datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S").timetuple()) * 1000
+            tweet['timestamp'] = new_s
             user_tweets.append(tweet)
 
     return user_tweets

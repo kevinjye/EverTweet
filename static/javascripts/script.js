@@ -6,7 +6,7 @@ $("#startDate").change(function(){
     startDate = $('#startDate').val();
     if ((startDate != '') && (endDate != '') && (twitterHandle != '')){
         console.log(twitterHandle, startDate, endDate)
-        create_graph(twitterHandle, startDate, endDate)
+        get_data(twitterHandle, startDate, endDate)
     }
 })
 
@@ -14,7 +14,7 @@ $("#endDate").change(function(){
     endDate = $('#endDate').val();
     if ((startDate != '') && (endDate != '') && (twitterHandle != '')){
         console.log(twitterHandle, startDate, endDate)
-        create_graph(twitterHandle, startDate, endDate)
+        get_data(twitterHandle, startDate, endDate)
     }
 })
 
@@ -22,41 +22,69 @@ $("#twitterHandle").change(function(){
     twitterHandle = $('#twitterHandle').val();
     if ((startDate != '') && (endDate != '') && (twitterHandle != '')){
         console.log(twitterHandle, startDate, endDate)
-        create_graph(twitterHandle, startDate, endDate)
+        get_data(twitterHandle, startDate, endDate)
     }
 })
 
-create_graph('01/01/2016', '04/16/2017')
+get_data('01/01/2016', '04/16/2017')
 
-function create_graph(twitterHandle, startDate, endDate) {
+function get_data(twitterHandle, startDate, endDate) {
     $('#container').append('<div style="height: 800px" id="total_chart"></div>');
 
-    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+    // $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+    $.getJSON('/getSentimentList/ishantlguru', function (data) {
         console.log(data);
 
         series_list = []
+        seriesCounter = 0,
+        names = ['Angry', 'Joy', 'Sadness'];
+
+        new_data_angry = []
+        for (index in data['angry']){
+            new_data_angry.push(data['angry'][index].slice(1, 3))
+        }
+
+        new_data_joy = []
+        for (index in data['joy']){
+            new_data_joy.push(data['joy'][index].slice(1, 3))
+        }
+
+        new_data_sadness = []
+        for (index in data['sadness']){
+            new_data_sadness.push(data['sadness'][index].slice(1, 3))
+        }
+
         series_list.push({
             type: 'line',
-            name: 'Anger',
+            name: 'Angry',
             color: '#BF0B23',
-            data: data.slice(0, 300)
+            data: new_data_angry
         })
 
         series_list.push({
             type: 'line',
-            name: 'Happiness',
+            name: 'Joy',
             color: '#008000',
-            data: data.slice(301, 500)
+            data: new_data_joy
         })
 
         series_list.push({
             type: 'line',
             name: 'Sadness',
             color: '#0000ff',
-            data: data.slice(501, 600)
+            data: new_data_sadness
         })
 
+        console.log(series_list);
 
+
+        create_chart();
+    });
+}
+
+
+ function create_chart() {
+        
         Highcharts.chart('container', {
             chart: {
                 zoomType: 'x'
@@ -108,5 +136,4 @@ function create_graph(twitterHandle, startDate, endDate) {
 
             series: series_list
         });
-    });
 }

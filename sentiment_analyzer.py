@@ -1,4 +1,5 @@
 import json
+from flask import jsonify
 import datetime
 import ConfigParser
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
@@ -32,21 +33,22 @@ def get_tweet_sentiments(tweets):
 
         sentiment = get_sentiment(message)
         sentiment_list['angry'].append(
-            [timestamp, message, sentiment['anger']]
+            [message, timestamp, sentiment['anger']]
         )
         sentiment_list['joy'].append(
-            [timestamp, message, sentiment['joy']]
+            [message, timestamp, sentiment['joy']]
         )
         sentiment_list['sadness'].append(
-            [timestamp, message, sentiment['sadness']]
+            [message, timestamp, sentiment['sadness']]
         )
         sentiment_list['fear'].append(
-            [timestamp, message, sentiment['fear']]
+            [message, timestamp, sentiment['fear']]
         )
         sentiment_list['disgust'].append(
-            [timestamp, message, sentiment['disgust']]
+            [message, timestamp, sentiment['disgust']]
         )
 
-    return sentiment_list
+
+    return jsonify(sentiment_list)
 
 
