@@ -16,5 +16,7 @@ python:
   - "3.2"
   - "3.3"
 # install dependencies
-install: "pip install -r requirements.txt"
-# script: pytest
+install: 
+  -pip install --upgrade setuptools
+  -pip install -r requirements.txt
+script: pytest
