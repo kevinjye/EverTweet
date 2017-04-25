@@ -13,16 +13,10 @@ app.config.update(
 def index():
     return render_template('index.html')
 
-@app.route('/getTwitterData/<username>', methods=['GET', 'POST'])
-def getTwitterData(username):
+@app.route('/getSentimentList/<username>/<numTweets>', methods=['GET', 'POST'])
+def get_sentiment_list(username, numTweets):
 
-    sentimentData = getSentiments(username);
-    return reformatForUI(sentimentData)
-
-@app.route('/getSentimentList/<username>', methods=['GET', 'POST'])
-def get_sentiment_list(username):
-
-    tweets = get_tweets(username)
+    tweets = get_tweets(username, numTweets)
     return get_tweet_sentiments(tweets)
 
 if __name__ == '__main__':

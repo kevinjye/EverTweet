@@ -20,7 +20,8 @@ nlu_analyzer = NaturalLanguageUnderstandingV1(
 def get_sentiment(input_text):
 
     response = nlu_analyzer.analyze(text=input_text,
-                                    features=[features.Emotion()])
+                                    features=[features.Emotion()], 
+                                    language='en')
     return response['emotion']['document']['emotion']
 
 def get_tweet_sentiments(tweets):
@@ -49,6 +50,6 @@ def get_tweet_sentiments(tweets):
         )
 
 
-    return jsonify(sentiment_list)
+    return json.dumps(sentiment_list)
 
 

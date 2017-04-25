@@ -22,13 +22,15 @@ def sentiment(tweet):
     return tweet
     pass
 
-def get_tweets(twitter_handle):
+def get_tweets(twitter_handle, num_tweets):
 
     auth = tweepy.AppAuthHandler(consumerKey, consumerSecret)
     # auth.set_access_token(accessToken, accessSecret)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-    timeline = api.user_timeline(screen_name=twitter_handle, count=3200)
+    # timeline = api.user_timeline(screen_name=twitter_handle, count=3200)
+    timeline = api.user_timeline(screen_name=twitter_handle, count=num_tweets)
+
     user_tweets = []
 
     for current_tweet in timeline:
