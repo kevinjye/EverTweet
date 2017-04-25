@@ -1,6 +1,5 @@
 Django==1.4.1
 awscli==1.11.29
-Babel==0.9.4
 backports.ssl-match-hostname==3.4.0.2
 boto==2.42.0
 botocore==1.4.86
