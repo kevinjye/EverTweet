@@ -5,7 +5,6 @@ boto==2.42.0
 botocore==1.4.86
 click==6.7
 colorama==0.2.5
-configobj==4.7.2
 docutils==0.11
 ecdsa==0.11
 Flask==0.12.1
