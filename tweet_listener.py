@@ -4,9 +4,12 @@ import time
 import datetime
 import ConfigParser
 import tweepy
-# from tweepy import Stream
 from tweepy.streaming import StreamListener
 
+
+'''
+Get API keys from Configurations document
+'''
 config = ConfigParser.ConfigParser()
 config.readfp(open(r'./configurations.txt'))
 
@@ -15,20 +18,15 @@ consumerSecret=config.get('API Keys', 'consumerSecret')
 accessToken=config.get('API Keys', 'accessToken')
 accessSecret=config.get('API Keys', 'accessSecret')
 
-REQUEST_LIMIT = 420
 
-def sentiment(tweet):
-
-    return tweet
-    pass
-
+'''
+Returns given number of tweets for given Twitter handle
+'''
 def get_tweets(twitter_handle, num_tweets):
 
     auth = tweepy.AppAuthHandler(consumerKey, consumerSecret)
-    # auth.set_access_token(accessToken, accessSecret)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-    # timeline = api.user_timeline(screen_name=twitter_handle, count=3200)
     timeline = api.user_timeline(screen_name=twitter_handle, count=num_tweets)
 
     user_tweets = []
@@ -46,8 +44,3 @@ def get_tweets(twitter_handle, num_tweets):
 
     return user_tweets
 
-# For testing purposes only
-if __name__ == '__main__':
-    twitter_handle = 'tomandmartys'
-    all_tweets = get_tweets(twitter_handle)
-    print len(all_tweets)

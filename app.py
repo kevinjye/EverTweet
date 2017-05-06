@@ -10,10 +10,17 @@ app.config.update(
 	SECRET_KEY='EVERTWEET'
 )
 
+'''
+Loads webpage
+'''
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('index.html')
 
+
+'''
+Returns given number of sentiment values for given user
+'''
 @app.route('/getSentimentList/<username>/<numTweets>', methods=['GET', 'POST'])
 def get_sentiment_list(username, numTweets):
 
