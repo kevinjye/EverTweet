@@ -9,12 +9,12 @@ The idea of our application stems from research that associates social media con
 
 ## How to run locally
 1. Install required Python Libraries
-```python
+```shell
 pip install -r requirements.txt
 ```
 
 2. Run app.py
-```python
+```shell
 python app.py
 ```
 
