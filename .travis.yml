@@ -12,5 +12,7 @@ python:
   # - "3.7-dev"
   # - "nightly"
 # install dependencies
-install: "pip install -r requirements.txt"
-script: pytest
+install:
+  - "pip install -r requirements.txt"
+script:
+  - bash -ex tests.sh
