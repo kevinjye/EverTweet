@@ -1,23 +1,5 @@
-// var startDate = '';
-// var endDate = '';
 var numTweets = '';
 var twitterHandle = '';
-
-// $("#startDate").change(function(){
-//     startDate = $('#startDate').val();
-//     if ((startDate != '') && (endDate != '') && (twitterHandle != '')){
-//         console.log(twitterHandle, startDate, endDate)
-//         get_data(twitterHandle, startDate, endDate)
-//     }
-// })
-
-// $("#endDate").change(function(){
-//     endDate = $('#endDate').val();
-//     if ((startDate != '') && (endDate != '') && (twitterHandle != '')){
-//         console.log(twitterHandle, startDate, endDate)
-//         get_data(twitterHandle, startDate, endDate)
-//     }
-// })
 
 $("#numTweets").change(function(){
     numTweets = $('#numTweets').val();
@@ -37,14 +19,13 @@ $("#twitterHandle").change(function(){
 
 
 // some examples: ishantlguru, realDonaldTrump, justinbieber
-get_data('BarackObama', '10');
+get_data('realDonaldTrump', '10');
 
 function get_data(twitterHandle, numTweets) {
+    var startTime = new Date();
     $('#container').append('<div style="height: 800px" id="total_chart"></div>');
 
-    // $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
     $.getJSON('/getSentimentList/' + twitterHandle + '/' + numTweets, function (data) {
-    // $.getJSON('/getSentimentList/therealjamesxue', function (data) {
 
         console.log(data)
 
@@ -113,6 +94,10 @@ function get_data(twitterHandle, numTweets) {
         console.log(series_list);
 
         create_chart(twitterHandle);
+        var endTime = new Date();
+        var timeDiff = endTime - startTime;
+        timeDiff /= 1000;
+        console.log(timeDiff);
     });
 }
 
