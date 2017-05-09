@@ -19,7 +19,7 @@ $("#twitterHandle").change(function(){
 
 
 // some examples: ishantlguru, realDonaldTrump, justinbieber
-get_data('BarackObama', '10');
+get_data('realDonaldTrump', '10');
 
 function get_data(twitterHandle, numTweets) {
     var startTime = new Date();
