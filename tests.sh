@@ -1,5 +1,6 @@
-if [ -d "$testcases" ]; then
-  for f in testcases/*.py;
-      do python "$f";
+if [ -d "testcases" ]; then
+  cd testcases
+  for f in *.py;
+      do python $f;
   done
 fi
