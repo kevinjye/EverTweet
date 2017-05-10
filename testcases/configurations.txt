@@ -1,0 +1,10 @@
+[API Keys]
+consumerKey=wUrSNGjSSGyzGC1kAn1eOcKqi
+consumerSecret=4gczGho5Eo7dD900natXkbrKyLZPQon6RMSe4tFyBaDzyhsDjT
+accessToken=853658940030275585-Lsh0T4mWm2NxLRkqNPgH8jazxn90PYd
+accessSecret=p4dirUVRrY0dVLDxqzwhhgGALGdlLsL24k0PvRcsqQBGj
+
+[WATSON API Keys]
+url=https://gateway.watsonplatform.net/natural-language-understanding/api
+username=49b58669-af90-49dc-8b34-db04bf79a69e
+password=45mPPgk6i6Bs
